@@ -39,7 +39,7 @@ public class ApoliceSeguroRepository(SegfyInsuranceDbContext contexto) : IApolic
                 SELECT *
                 FROM InsurancePolicies
                 WHERE Id = {0}
-                """, id.ToString())
+                """, id)
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
     }
