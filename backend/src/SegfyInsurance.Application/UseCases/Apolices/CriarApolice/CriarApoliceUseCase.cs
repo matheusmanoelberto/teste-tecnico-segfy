@@ -4,7 +4,7 @@ using SegfyInsurance.Domain.ValueObjects;
 
 namespace SegfyInsurance.Application.UseCases.Apolices.CriarApolice;
 
-public class CriarApoliceUseCase(IApoliceSeguroRepository repositorio)
+public class CriarApoliceUseCase(IApoliceSeguroRepository repositorio, IUnitOfWork unitOfWork)
 {
     public async Task<CriarApoliceResponse> ExecutarAsync(CriarApoliceRequisicao requisicao, CancellationToken cancellationToken)
     {
@@ -21,6 +21,7 @@ public class CriarApoliceUseCase(IApoliceSeguroRepository repositorio)
             requisicao.DataFim);
 
         await repositorio.AdicionarAsync(apolice, cancellationToken);
+        await unitOfWork.CommitAsync(cancellationToken);
 
         return CriarApoliceResponse.APartirDe(apolice);
     }

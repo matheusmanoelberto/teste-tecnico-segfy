@@ -3,7 +3,7 @@ using SegfyInsurance.Domain.Exceptions;
 
 namespace SegfyInsurance.Application.UseCases.Apolices.CancelarApolice;
 
-public class CancelarApoliceUseCase(IApoliceSeguroRepository repositorio)
+public class CancelarApoliceUseCase(IApoliceSeguroRepository repositorio, IUnitOfWork unitOfWork)
 {
     public async Task ExecutarAsync(Guid id, CancellationToken cancellationToken)
     {
@@ -12,6 +12,7 @@ public class CancelarApoliceUseCase(IApoliceSeguroRepository repositorio)
 
         apolice.Cancelar();
         await repositorio.AtualizarAsync(apolice, cancellationToken);
+        await unitOfWork.CommitAsync(cancellationToken);
     }
 }
 

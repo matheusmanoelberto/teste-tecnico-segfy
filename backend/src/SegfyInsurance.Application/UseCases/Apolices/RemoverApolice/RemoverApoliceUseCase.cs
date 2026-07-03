@@ -2,11 +2,12 @@ using SegfyInsurance.Application.Abstracoes;
 
 namespace SegfyInsurance.Application.UseCases.Apolices.RemoverApolice;
 
-public class RemoverApoliceUseCase(IApoliceSeguroRepository repositorio)
+public class RemoverApoliceUseCase(IApoliceSeguroRepository repositorio, IUnitOfWork unitOfWork)
 {
-    public Task ExecutarAsync(Guid id, CancellationToken cancellationToken)
+    public async Task ExecutarAsync(Guid id, CancellationToken cancellationToken)
     {
-        return repositorio.RemoverAsync(id, cancellationToken);
+        await repositorio.RemoverAsync(id, cancellationToken);
+        await unitOfWork.CommitAsync(cancellationToken);
     }
 }
 

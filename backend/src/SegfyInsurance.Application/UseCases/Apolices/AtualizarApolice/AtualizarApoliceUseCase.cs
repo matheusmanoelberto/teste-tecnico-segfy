@@ -4,7 +4,7 @@ using SegfyInsurance.Domain.ValueObjects;
 
 namespace SegfyInsurance.Application.UseCases.Apolices.AtualizarApolice;
 
-public class AtualizarApoliceUseCase(IApoliceSeguroRepository repositorio)
+public class AtualizarApoliceUseCase(IApoliceSeguroRepository repositorio, IUnitOfWork unitOfWork)
 {
     public async Task ExecutarAsync(Guid id, AtualizarApoliceRequisicao requisicao, CancellationToken cancellationToken)
     {
@@ -19,6 +19,7 @@ public class AtualizarApoliceUseCase(IApoliceSeguroRepository repositorio)
             requisicao.DataFim);
 
         await repositorio.AtualizarAsync(apolice, cancellationToken);
+        await unitOfWork.CommitAsync(cancellationToken);
     }
 }
 

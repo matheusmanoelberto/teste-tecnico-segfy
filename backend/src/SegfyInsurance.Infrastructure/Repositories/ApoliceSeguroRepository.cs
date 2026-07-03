@@ -10,13 +10,12 @@ public class ApoliceSeguroRepository(SegfyInsuranceDbContext contexto) : IApolic
     public async Task AdicionarAsync(ApoliceSeguro apolice, CancellationToken cancellationToken)
     {
         await contexto.ApolicesSeguro.AddAsync(apolice, cancellationToken);
-        await contexto.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task AtualizarAsync(ApoliceSeguro apolice, CancellationToken cancellationToken)
+    public Task AtualizarAsync(ApoliceSeguro apolice, CancellationToken cancellationToken)
     {
         contexto.ApolicesSeguro.Update(apolice);
-        await contexto.SaveChangesAsync(cancellationToken);
+        return Task.CompletedTask;
     }
 
     public async Task RemoverAsync(Guid id, CancellationToken cancellationToken)
@@ -29,7 +28,6 @@ public class ApoliceSeguroRepository(SegfyInsuranceDbContext contexto) : IApolic
         }
 
         contexto.ApolicesSeguro.Remove(apolice);
-        await contexto.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<ApoliceSeguro?> BuscarPorIdAsync(Guid id, CancellationToken cancellationToken)

@@ -15,6 +15,7 @@ public static class InjecaoDependencia
             ?? throw new InvalidOperationException("Connection string 'BancoSegfy' nao foi configurada.");
 
         servicos.AddDbContext<SegfyInsuranceDbContext>(opcoes => opcoes.UseSqlite(stringConexao));
+        servicos.AddScoped<IUnitOfWork, UnitOfWork>();
         servicos.AddScoped<IApoliceSeguroRepository, ApoliceSeguroRepository>();
 
         return servicos;
