@@ -1,0 +1,24 @@
+@SegfyInsurance.Api_HostAddress = http://localhost:5062
+
+POST {{SegfyInsurance.Api_HostAddress}}/api/apolices-seguro
+Content-Type: application/json
+
+{
+  "documentoSegurado": "12345678901",
+  "placaVeiculo": "ABC1D23",
+  "premioMensal": 199.90,
+  "dataInicio": "2026-07-01",
+  "dataFim": "2026-08-01"
+}
+
+###
+
+GET {{SegfyInsurance.Api_HostAddress}}/api/apolices-seguro
+Accept: application/json
+
+###
+
+GET {{SegfyInsurance.Api_HostAddress}}/api/apolices-seguro/vencendo-proximos-30-dias
+Accept: application/json
+
+###
